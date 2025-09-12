@@ -18,7 +18,7 @@ const displayTreeCategorie = (TreeCategories) => {
 
 
 const categoryContainer = document.getElementById("category-container");
-categoryContainer.innerHTML=`<h1 class="font-bold"> Categories </h1>`;
+categoryContainer.innerHTML=`<h1 class="font-bold ml-13 mt-8"> Categories </h1>`;
 
 for (let TreeCategorie of TreeCategories){
 
