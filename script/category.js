@@ -3,7 +3,7 @@ const loadTreeCategories = () =>{
     .then((res)=>res.json())
     .then((json)=> displayTreeCategorie(json.categories));
 };
-
+//all plant show
 
 const loadPlants = () => {
     fetch("https://openapi.programming-hero.com/api/plants")
@@ -13,7 +13,7 @@ const loadPlants = () => {
 };
 
 const displayPlant = (plants) => {
-     // Will print the array of plant objects
+     
 
      const plantContainer = document.getElementById("plant-container");
      plantContainer.innerHTML ="";
@@ -21,8 +21,8 @@ const displayPlant = (plants) => {
 
      for (let plant of plants){
         const plantCard= document.createElement("div")
-        plantCard.innerHTML =`   <div class="card bg-base-100 w-full h-full shadow-sm flex flex-col justify-between max-w-sm mx-auto min-h-[450px]">
-  <figure class="px-10 pt-10">
+        plantCard.innerHTML =`   <div class="card bg-base-100 w-full h-full shadow-sm flex flex-col  max-w-sm mx-auto min-h-[450px]">
+  <figure class="px-5 pt-5">
     <img src="${plant.image}" alt="tree" class="rounded-xl h-40 w-full object-cover" />
   </figure>
   <div class="card-body items-center flex flex-col justify-between  text-center">
@@ -49,11 +49,7 @@ const displayPlant = (plants) => {
 
 loadPlants();
  
-
-//const loadAllPlants =(id)=>{
- //   const url =`https://openapi.programming-hero.com/api/plants/${id}`;
-  //  console.log(url);   
-//}
+//end all plant show
 
 
 const displayTreeCategorie = (TreeCategories) => {
