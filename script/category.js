@@ -59,17 +59,17 @@ const displayPlant = (plants) => {
     <img src="${plant.image}" alt="tree" class="rounded-xl h-40 w-full object-cover" />
   </figure>
   <div class="card-body items-center flex flex-col justify-between  text-center">
-    <h2 class="card-title mr-30 font-bold text-xl  ">${plant.name}</h2>
+    <h2 class="card-title mr-30 font-bold text-xl plant-title ">${plant.name}</h2>
     <p class="text-sm text-gray-600 ">${plant.description}</p>
     <!--div-->
     <div class="flex ">
       <div class="badge text-green-900 font-bold  bg-[#DCFCE7] rounded-full mr-20">${plant.category}</div>
-      <div class="badge  font-bold">৳<span>${plant.price}</span></div>
+      <div class="badge  font-bold plant-price">৳<span>${plant.price}</span></div>
     </div>
 
 
     <div class="card-actions mt-4 w-full">
-      <button class="btn w-full mx-auto  rounded-full text-white bg-[#15803D]">Add to Cart</button>
+      <button onclick="addtoCart(this)"  class="btn w-full mx-auto  rounded-full text-white bg-[#15803D]">Add to Cart</button>
 
       
     </div>
@@ -101,7 +101,7 @@ for (let TreeCategorie of TreeCategories){
 
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
-        <button id="TreeCategorie-btn-${TreeCategorie.id}"  onclick="loadAllPlants(${TreeCategorie.id})" class="btn btn-ghost h-8 w-50 hover:text-white hover:bg-[#15803d] btn-category">${TreeCategorie.category_name}</button>`;  
+        <a href="#plant" id="TreeCategorie-btn-${TreeCategorie.id}"  onclick="loadAllPlants(${TreeCategorie.id})" class="btn btn-ghost h-8 w-50 hover:text-white hover:bg-[#15803d] btn-category">${TreeCategorie.category_name}</a>`;  
 
       categoryContainer.append(btnDiv);
     }
@@ -131,3 +131,5 @@ const displayDetails = (plant)=>{
 loadPlants();
 loadTreeCategories();
 loadTreeDetails();
+
+
