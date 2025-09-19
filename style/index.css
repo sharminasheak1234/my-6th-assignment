@@ -1,3 +1,8 @@
 .inter-font{
     font-family: "Inter", sans-serif;
 }
+
+.active{
+    background-color: black;
+    color:white
+  }

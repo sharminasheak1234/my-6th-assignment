@@ -43,7 +43,7 @@ https://openapi.programming-hero.com/api/category/1
 4. Get 🌴Plants Detail <br/>
 
 ```bash
-https://openapi.programming-hero.com/api/plant/${id}
+        https://openapi.programming-hero.com/api/plant/${id}
 ```
 
 ```bash

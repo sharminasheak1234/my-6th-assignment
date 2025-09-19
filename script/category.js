@@ -1,17 +1,49 @@
 const loadTreeCategories = () =>{
     fetch("https://openapi.programming-hero.com/api/categories")
     .then((res)=>res.json())
-    .then((json)=> displayTreeCategorie(json.categories));
+    .then((data)=> displayTreeCategorie(data.categories));
 };
-//all plant show
+
 
 const loadPlants = () => {
     fetch("https://openapi.programming-hero.com/api/plants")
         .then((res) => res.json())
-        .then((json) => displayPlant(json.plants))
-        .catch((err) => console.error("Error loading plants:", err));
+        .then((data) => displayPlant(data.plants))
+        
 };
+/// by clicking category get plants
+const loadAllPlants =(id)=>{
 
+  /////spinner
+  document.getElementById("loading-spinner").classList.remove("hidden");
+  document.getElementById("plant-container").classList.add("hidden");
+////
+
+const url =id 
+?`https://openapi.programming-hero.com/api/category/${id}`
+:`https://openapi.programming-hero.com/api/category/1`
+
+const catBtns = document.querySelectorAll(".btn-category");
+  catBtns.forEach((btn) => btn?.classList?.remove("active"));
+
+  const currentBtn = document.getElementById(`TreeCategorie-btn-${id}`);
+  console.log(currentBtn);
+  currentBtn?.classList?.add("active");
+ fetch(url)
+.then((res) => res.json())
+.then((data) =>displayPlant(data.plants));
+}
+
+///modal
+
+const loadTreeDetails=(id)=> {
+  const url =`https://openapi.programming-hero.com/api/plant/${id}`;  
+  fetch(url)
+.then((res) => res.json())
+.then((data) =>displayDetails(data.plants));
+}
+
+//all plant show
 const displayPlant = (plants) => {
      
 
@@ -21,7 +53,8 @@ const displayPlant = (plants) => {
 
      for (let plant of plants){
         const plantCard= document.createElement("div")
-        plantCard.innerHTML =`   <div class="card bg-base-100 w-full h-full shadow-sm flex flex-col  max-w-sm mx-auto min-h-[450px]">
+        plantCard.innerHTML =`
+        <div onclick="loadTreeDetails(${plant.id})"  class="card bg-base-100 w-full h-full shadow-sm flex flex-col  max-w-sm mx-auto min-h-[450px]">
   <figure class="px-5 pt-5">
     <img src="${plant.image}" alt="tree" class="rounded-xl h-40 w-full object-cover" />
   </figure>
@@ -29,8 +62,8 @@ const displayPlant = (plants) => {
     <h2 class="card-title mr-30 font-bold text-xl  ">${plant.name}</h2>
     <p class="text-sm text-gray-600 ">${plant.description}</p>
     <!--div-->
-    <div class="flex mt-2">
-      <div class="badge text-green-900 font-bold  bg-[#DCFCE7] rounded-full mr-30">${plant.category}</div>
+    <div class="flex ">
+      <div class="badge text-green-900 font-bold  bg-[#DCFCE7] rounded-full mr-20">${plant.category}</div>
       <div class="badge  font-bold">৳<span>${plant.price}</span></div>
     </div>
 
@@ -43,32 +76,58 @@ const displayPlant = (plants) => {
   </div>
 </div>`;
 
-       plantContainer.appendChild(plantCard);
+       plantContainer.append(plantCard);
+         
      };
+     
+  document.getElementById("loading-spinner").classList.add("hidden");
+  document.getElementById("plant-container").classList.remove("hidden");  
 };
 
-loadPlants();
- 
-//end all plant show
+//active
 
+
+
+
+
+
+// category show
 
 const displayTreeCategorie = (TreeCategories) => {
-    //console.log(TreeCategories)
-
-
 const categoryContainer = document.getElementById("category-container");
-categoryContainer.innerHTML=`<h1 class="font-bold ml-13 mt-8"> Categories </h1>`;
+categoryContainer.innerHTML="";
 
 for (let TreeCategorie of TreeCategories){
 
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `
-        <button onclick="loadAllPlants('${TreeCategorie.category_name}')" class="btn btn-ghost h-8 w-50 hover:text-white hover:bg-[#15803d]  ">${TreeCategorie.category_name}</button>`;  
+        <button id="TreeCategorie-btn-${TreeCategorie.id}"  onclick="loadAllPlants(${TreeCategorie.id})" class="btn btn-ghost h-8 w-50 hover:text-white hover:bg-[#15803d] btn-category">${TreeCategorie.category_name}</button>`;  
 
       categoryContainer.append(btnDiv);
     }
 
 };
+//modal display
 
+const displayDetails = (plant)=>{
+  const detailsContainer = document.getElementById("details-container");
+  detailsContainer.innerHTML=`<div class="">
+        <img src="${plant.image}" alt="" class="rounded-xl h-40 w-full object-cover />
+        <h2 class="card-title mr-30 font-bold text-xl  ">${plant.name}</h2>
+    <p class="text-sm text-gray-600 ">${plant.description}</p>
+    <div class="flex ">
+      <div class="badge text-green-900 font-bold  bg-[#DCFCE7] rounded-full mr-20">${plant.category}</div>
+      <div class="badge  font-bold">৳<span>${plant.price}</span></div>
+    </div> 
+    </div>`;
+
+    document.getElementById("my_modal_2").showModal();
+
+}
+
+
+
+
+loadPlants();
 loadTreeCategories();
-
+loadTreeDetails();
